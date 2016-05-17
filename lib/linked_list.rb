@@ -16,17 +16,14 @@ class LinkedList
   def append(data)
     node = create_node(data)
     if head == nil
-      node.position = 0
-      @head = node
+      assign_head(node)
     elsif head.next_node == nil
-      node.position = 1
-      @head.next_node = node
+      head_assign_next(node)
     else
-      node.position = tail.position + 1
-      @tail.next_node = node
+      temp_tail_assign_next(node)
     end
-    @tail = node
-    @count += 1
+    assign_tail(node)
+    increment_count(1)
   end
 
   def to_string
@@ -43,28 +40,30 @@ class LinkedList
   def prepend(data)
     node = create_node(data)
     if head == nil
-      @head = node
+      assign_head(node)
     else
       head_holding = head
-      @head = node
-      @head.next_node = head_holding
+      assign_head(node)
+      head_assign_next(head_holding)
     end
   end
 
   def navigate_to(place)
     current_location = head
-    until current_location.position == place
+    position = 0
+    while current_location.next_node != nil && position != place
       current_location = current_location.next_node
+      position += 1
     end
     current_location
   end
 
   def insert(place, data)
     if place <= 0
-      # puts "Place #{place} requested. This will be the new head."
+      # Place is head or negative. This will be the new head.
       prepend(data)
-    elsif place > tail.position
-      # puts "This is beyond the tail. Placing at position #{tail.position + 1} as the new tail."
+    elsif place > count - 1
+      # Place is beyond the tail. This will be the new tail.
       append(data)
     else
       node = create_node(data)
@@ -79,9 +78,11 @@ class LinkedList
     starting_value = navigate_to(start)
     ending_value = starting_value
     string = ""
-    until ending_value.position == start + num_elements
+    current_position = start
+    until current_position == start + num_elements
       string << ending_value.data.to_s + " "
       ending_value = ending_value.next_node
+      current_position += 1
     end
     string.chop!
     string
@@ -92,19 +93,50 @@ class LinkedList
     while starting.data != data && starting.next_node != nil
       starting = starting.next_node
     end
-    if starting.data == data
-      true
-    else
-      false
-    end
+    true if starting.data == data
   end
 
   def pop
-    starting = head
-    until starting.position == tail.position - 1
-      starting = starting.next_node
+    if count <= 1
+      assign_head(nil)
+      assign_tail(nil)
+    elsif count == 2
+      head_assign_next(nil)
+      assign_tail(head)
+    else
+      new_tail = head
+      position = 0
+      until position == count - 2
+        new_tail = new_tail.next_node
+        position += 1
+      end
+      assign_tail(new_tail)
     end
-    @tail = starting
+    decrement_count(1) if count > 0
+  end
+
+  def assign_head(node)
+    @head = node
+  end
+
+  def assign_tail(node)
+    @tail = node
+  end
+
+  def head_assign_next(node)
+    @head.next_node = node
+  end
+
+  def temp_tail_assign_next(node)
+    @tail.next_node = node
+  end
+
+  def increment_count(num)
+    @count += num
+  end
+
+  def decrement_count(num)
+    @count -= num
   end
 
 end

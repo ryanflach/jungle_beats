@@ -33,5 +33,5 @@ class JungleBeatTest < Minitest::Test
     assert @jb.play
   end
 
-  
+
 end

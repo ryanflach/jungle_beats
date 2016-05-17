@@ -77,12 +77,11 @@ class LinkedListTest < Minitest::Test
 
   def test_it_can_insert_into_any_valid_position
     @list.append("zero")
-    assert_equal 0, @list.head.position
+    assert_equal "zero", @list.head.data
     @list.append("one")
-    assert_equal 1, @list.head.next_node.position
+    assert_equal "one", @list.tail.data
     @list.append("two")
-    assert_equal "one", @list.navigate_to(1).data
-    assert_equal 2, @list.head.next_node.next_node.position
+    assert_equal "two", @list.navigate_to(2).data
     @list.insert(1, "new one")
     assert_equal "new one", @list.head.next_node.data
   end
@@ -101,7 +100,7 @@ class LinkedListTest < Minitest::Test
 
   def test_it_can_return_a_set_number_of_elements_from_a_starting_location
     0.upto(4) { |num| @list.append(num.to_s) }
-    assert_equal "1 2 3", @list.find(1, 3)
+    assert_equal "2 3", @list.find(2, 2)
   end
 
   def test_it_can_determine_if_an_element_is_included
@@ -111,13 +110,15 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_can_pop_off_the_last_element
+    @list.append("zero")
     @list.append("one")
     @list.append("two")
-    @list.append("three")
     @list.pop
-    assert_equal "two", @list.tail.data
+    assert_equal "one", @list.tail.data
     @list.pop
-    assert_equal "one", @list.head.data
+    assert_equal "zero", @list.tail.data
+    @list.pop
+    assert_equal nil, @list.tail
   end
 
 end
