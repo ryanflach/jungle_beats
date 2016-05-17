@@ -1,8 +1,8 @@
 class LinkedList
   attr_reader :head, :tail, :count, :string
 
-  def initialize(head=nil)
-    @head = head
+  def initialize
+    @head = nil
     @tail = nil
     @count = 0
     @string = ""
@@ -11,14 +11,18 @@ class LinkedList
   def append(node)
     if head == nil
       @head = node
-    elsif tail == nil
-      @tail = node
+    else
+      @head.next_node = node
     end
     @count += 1
   end
 
   def to_string
-    @string << head.data.to_s
+    if count == 1
+      @string << head.data.to_s
+    elsif count > 1
+      @string << head.data.to_s + " " + head.next_node.to_s
+    end
   end
 
 end
