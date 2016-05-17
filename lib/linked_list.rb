@@ -101,4 +101,12 @@ class LinkedList
     end
   end
 
+  def pop
+    starting = head
+    until starting.position == tail.position - 1
+      starting = starting.next_node
+    end
+    @tail = starting
+  end
+
 end

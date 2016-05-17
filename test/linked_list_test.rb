@@ -110,4 +110,14 @@ class LinkedListTest < Minitest::Test
     refute @list.include?("small")
   end
 
+  def test_it_can_pop_off_the_last_element
+    @list.append("one")
+    @list.append("two")
+    @list.append("three")
+    @list.pop
+    assert_equal "two", @list.tail.data
+    @list.pop
+    assert_equal "one", @list.head.data
+  end
+
 end
