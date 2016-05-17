@@ -21,12 +21,11 @@ class LinkedList
     elsif head.next_node == nil
       node.position = 1
       @head.next_node = node
-      @tail = node
     else
       node.position = tail.position + 1
       @tail.next_node = node
-      @tail = node
     end
+    @tail = node
     @count += 1
   end
 
@@ -39,7 +38,6 @@ class LinkedList
       string << starting.data + " "
     end
     string.chop!
-    string
   end
 
   def prepend(data)
