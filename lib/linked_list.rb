@@ -63,10 +63,10 @@ class LinkedList
 
   def insert(place, data)
     if place <= 0
-      puts "Place #{place} requested. This will be the new head."
+      # puts "Place #{place} requested. This will be the new head."
       prepend(data)
     elsif place > tail.position
-      puts "This is beyond the tail. Placing at position #{tail.position + 1} as the new tail."
+      # puts "This is beyond the tail. Placing at position #{tail.position + 1} as the new tail."
       append(data)
     else
       node = create_node(data)
@@ -74,6 +74,30 @@ class LinkedList
       current_node = navigate_to(place)
       prior_node.next_node = node
       node.next_node = current_node
+    end
+  end
+
+  def find(start, num_elements)
+    starting_value = navigate_to(start)
+    ending_value = starting_value
+    string = ""
+    until ending_value.position == start + num_elements
+      string << ending_value.data.to_s + " "
+      ending_value = ending_value.next_node
+    end
+    string.chop!
+    string
+  end
+
+  def include?(data)
+    starting = head
+    while starting.data != data && starting.next_node != nil
+      starting = starting.next_node
+    end
+    if starting.data == data
+      true
+    else
+      false
     end
   end
 
