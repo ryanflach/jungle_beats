@@ -21,4 +21,10 @@ class JungleBeatTest < Minitest::Test
     assert_equal "wop", jb.list.head.next_node.data
     assert_equal "diggy", jb.list.head.next_node.next_node.data
   end
+
+  def test_it_can_count_the_number_of_items
+    jb = JungleBeat.new
+    jb.append ("doo wop diggy")
+    assert_equal 3, jb.count
+  end
 end
