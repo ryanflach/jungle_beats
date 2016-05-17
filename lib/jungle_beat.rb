@@ -1,6 +1,6 @@
 require './lib/linked_list'
 
-class JungleBeat < LinkedList
+class JungleBeat
   attr_reader :list
 
   def initialize
@@ -8,6 +8,7 @@ class JungleBeat < LinkedList
   end
 
   def append(data)
-    list.append(data)
+    data_list = data.split
+    data_list.each { |data| list.append(data) }
   end
 end

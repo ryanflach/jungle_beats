@@ -13,4 +13,12 @@ class JungleBeatTest < Minitest::Test
     jb.append("doo")
     assert_equal "doo", jb.list.head.data
   end
+
+  def test_it_can_append_multiple_items_at_once
+    jb = JungleBeat.new
+    jb.append("doo wop diggy")
+    assert_equal "doo", jb.list.head.data
+    assert_equal "wop", jb.list.head.next_node.data
+    assert_equal "diggy", jb.list.head.next_node.next_node.data
+  end
 end
