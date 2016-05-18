@@ -2,7 +2,7 @@
 
 A command-line Ruby application that allows the user to create a "beat" using strings.
 
-The user's beat is played via the `play` method (utilizing the built-in`say` commmand).
+The user's beat is played via the `play` method (utilizing the built-in `say` commmand).
 
 This version of the application also allows the user to set the computer rate and voice.
 
