@@ -33,7 +33,7 @@ class LinkedList
       string = ""
       ending = starting
       current_position = start
-      until current_position == start + num #|| ending.next_node == nil
+      until current_position == start + num
         break if ending == nil
         string << ending.data + " "
         ending = ending.next_node
