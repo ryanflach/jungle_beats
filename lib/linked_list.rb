@@ -1,38 +1,55 @@
 require './lib/node'
 
 class LinkedList
-  attr_reader :head, :tail, :count
+  attr_reader :head
 
   def initialize
     @head = nil
-    @tail = nil
-    @count = 0
   end
 
-  def create_node(data)
-    Node.new(data)
+  def create_node(data, next_node=nil)
+    Node.new(data, next_node)
   end
 
-  def append(data)
-    node = create_node(data)
-    if head == nil
-      assign_head(node)
-    elsif head.next_node == nil
-      head_assign_next_node(node)
+  def tail(current_node=head)
+    if empty?
+      nil
+    elsif current_node.next_node == nil
+      current_node
     else
-      @tail.next_node = node
+      current_node = current_node.next_node
+      tail(current_node)
     end
-    assign_tail(node)
-    @count += 1
+  end
+
+  def count(current_node=head, nodes=0)
+    if empty?
+      nodes
+    elsif current_node.next_node == nil
+      nodes += 1
+    else
+      current_node = current_node.next_node
+      count(current_node, nodes += 1)
+    end
+  end
+
+  def append(data, current_node=head)
+    if empty?
+      assign_head(data)
+    elsif current_node.next_node == nil
+      current_node.next_node = create_node(data)
+    else
+      current_node = current_node.next_node
+      append(data, current_node)
+    end
   end
 
   def prepend(data)
-    node = create_node(data)
     if head == nil
-      assign_head(node)
+      assign_head(data)
     else
       head_holding = head
-      assign_head(node)
+      assign_head(data)
       head_assign_next_node(head_holding)
     end
   end
@@ -59,7 +76,7 @@ class LinkedList
   end
 
   def navigate_to(place)
-    if empty?
+    if empty? || place > count - 1
       nil
     elsif place < 0
       head
@@ -82,11 +99,10 @@ class LinkedList
       # Place is beyond the tail. This will be the new tail.
       append(data)
     else
-      node = create_node(data)
       prior_node = navigate_to(place - 1)
       current_node = navigate_to(place)
+      node = create_node(data, current_node)
       prior_node.next_node = node
-      node.next_node = current_node
     end
   end
 
@@ -105,34 +121,26 @@ class LinkedList
   def pop
     if count <= 1
       assign_head(nil)
-      assign_tail(nil)
     elsif count == 2
       head_assign_next_node(nil)
-      assign_tail(head)
     else
-      new_tail = head
-      position = 0
-      until position == count - 2
-        new_tail = new_tail.next_node
-        position += 1
-      end
-      assign_tail(new_tail)
+      new_tail = navigate_to(count - 2)
+      new_tail.next_node = nil
     end
-    @count -= 1 if count > 0
   end
 
   private
-  # Helper methods
+
   def empty?
-    count == 0
+    head == nil
   end
 
   def assign_head(node)
-    @head = node
-  end
-
-  def assign_tail(node)
-    @tail = node
+    if node == nil
+      @head = nil
+    else
+      @head = create_node(node)
+    end
   end
 
   def head_assign_next_node(node)

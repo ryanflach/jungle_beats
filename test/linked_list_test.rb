@@ -11,7 +11,7 @@ class LinkedListTest < Minitest::Test
     assert_equal nil, @list.head
   end
 
-  def test_tail_is_nil_by_default
+  def test_tail_is_nil_when_list_is_empty
     assert_equal nil, @list.tail
   end
 
@@ -73,7 +73,8 @@ class LinkedListTest < Minitest::Test
   def test_it_can_output_a_string_when_multiple_items
     @list.append("data")
     @list.append("beep")
-    assert_equal "data beep", @list.to_string
+    @list.append("boop")
+    assert_equal "data beep boop", @list.to_string
   end
 
   def test_to_string_will_return_nil_if_list_is_empty
@@ -98,6 +99,11 @@ class LinkedListTest < Minitest::Test
     @list.append("one")
     @list.append("two")
     assert_equal "one", @list.navigate_to(1).data
+  end
+
+  def test_if_beyond_the_tail_navigate_to_returns_nil
+    @list.append("zero")
+    assert_equal nil, @list.navigate_to(10)
   end
 
   def test_if_empty_list_navigate_to_returns_nil
@@ -142,6 +148,11 @@ class LinkedListTest < Minitest::Test
     assert_equal "0 1 2 3", @list.find(-1, 4)
   end
 
+  def test_it_will_return_nil_if_find_start_is_beyond_the_tail
+    0.upto(4) { |num| @list.append(num.to_s) }
+    assert_equal nil, @list.find(10, 4)
+  end
+
   def test_if_list_empty_find_returns_nil
     assert_equal nil, @list.find(0, 3)
   end
@@ -157,7 +168,7 @@ class LinkedListTest < Minitest::Test
     assert_equal false, @list.include?("test")
   end
 
-  def test_it_can_pop_off_the_last_element
+  def test_it_can_pop_off_an_element
     @list.append("zero")
     @list.append("one")
     @list.append("two")
