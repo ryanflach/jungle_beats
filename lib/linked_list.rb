@@ -20,21 +20,27 @@ class LinkedList
     elsif head.next_node == nil
       head_assign_next(node)
     else
-      temp_tail_assign_next(node)
+      @tail.next_node = node
     end
     assign_tail(node)
-    increment_count(1)
+    @count += 1
   end
 
-  def to_string
-    string = ""
-    starting = head
-    string << starting.data + " "
-    until starting.next_node == nil
-      starting = starting.next_node
-      string << starting.data + " "
+  def to_string (starting=head, start=0, num=count)
+    if empty?
+      empty_message
+    else
+      string = ""
+      ending = starting
+      current_position = start
+      until current_position == start + num #|| ending.next_node == nil
+        break if ending == nil
+        string << ending.data + " "
+        ending = ending.next_node
+        current_position += 1
+      end
+      string.chop!
     end
-    string.chop!
   end
 
   def prepend(data)
@@ -49,13 +55,19 @@ class LinkedList
   end
 
   def navigate_to(place)
-    current_location = head
-    position = 0
-    while current_location.next_node != nil && position != place
-      current_location = current_location.next_node
-      position += 1
+    if empty?
+      empty_message
+    elsif place < 0
+      head
+    else
+      current_location = head
+      position = 0
+      while current_location.next_node != nil && position != place
+        current_location = current_location.next_node
+        position += 1
+      end
+      current_location
     end
-    current_location
   end
 
   def insert(place, data)
@@ -75,25 +87,19 @@ class LinkedList
   end
 
   def find(start, num_elements)
-    starting_value = navigate_to(start)
-    ending_value = starting_value
-    string = ""
-    current_position = start
-    until current_position == start + num_elements
-      string << ending_value.data.to_s + " "
-      ending_value = ending_value.next_node
-      current_position += 1
-    end
-    string.chop!
-    string
+    to_string(navigate_to(start),start, num_elements)
   end
 
   def include?(data)
-    starting = head
-    while starting.data != data && starting.next_node != nil
-      starting = starting.next_node
+    if empty?
+      empty_message
+    else
+      starting = head
+      while starting.data != data && starting.next_node != nil
+        starting = starting.next_node
+      end
+      true if starting.data == data
     end
-    true if starting.data == data
   end
 
   def pop
@@ -112,7 +118,16 @@ class LinkedList
       end
       assign_tail(new_tail)
     end
-    decrement_count(1) if count > 0
+    @count -= 1 if count > 0
+  end
+
+  # Helper methods
+  def empty?
+    count == 0 ? true : false
+  end
+
+  def empty_message
+    "List is empty!"
   end
 
   def assign_head(node)
@@ -125,18 +140,6 @@ class LinkedList
 
   def head_assign_next(node)
     @head.next_node = node
-  end
-
-  def temp_tail_assign_next(node)
-    @tail.next_node = node
-  end
-
-  def increment_count(num)
-    @count += num
-  end
-
-  def decrement_count(num)
-    @count -= num
   end
 
 end

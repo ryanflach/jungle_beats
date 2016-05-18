@@ -11,15 +11,36 @@ class LinkedListTest < Minitest::Test
     assert_equal nil, @list.head
   end
 
-  def test_it_can_append_a_node
+  def test_tail_is_nil_by_default
+    assert_equal nil, @list.tail
+  end
+
+  def test_it_can_append_a_single_node
     @list.append("data")
     assert_equal "data", @list.head.data
   end
 
-  def test_if_already_has_head_append_becomes_head_next_node
+  def test_if_only_one_node_it_is_head_and_tail
+    @list.append("solo")
+    assert_equal "solo", @list.head.data
+    assert_equal "solo", @list.tail.data
+  end
+
+  def test_tail_has_no_next_node
+    @list.append("uno")
+    assert_equal nil, @list.tail.next_node
+  end
+
+  def test_if_already_has_head_appended_becomes_head_next_node
     @list.append("data")
     @list.append("second")
     assert_equal "second", @list.head.next_node.data
+  end
+
+  def test_if_already_has_head_appended_becomes_new_tail
+    @list.append("first")
+    @list.append("second")
+    assert_equal "second", @list.tail.data
   end
 
   def test_it_can_append_when_head_and_tail_present
@@ -55,6 +76,10 @@ class LinkedListTest < Minitest::Test
     assert_equal "data beep", @list.to_string
   end
 
+  def test_to_string_will_output_if_empty_list
+    assert_equal "List is empty!", @list.to_string
+  end
+
   def test_it_can_prepend_to_an_empty_list
     @list.prepend("data")
     assert_equal "data", @list.head.data
@@ -73,6 +98,10 @@ class LinkedListTest < Minitest::Test
     @list.append("one")
     @list.append("two")
     assert_equal "one", @list.navigate_to(1).data
+  end
+
+  def test_if_empty_list_navigate_returns_nil
+    assert_equal "List is empty!", @list.navigate_to(3)
   end
 
   def test_it_can_insert_into_any_valid_position
@@ -98,15 +127,33 @@ class LinkedListTest < Minitest::Test
     assert_equal "new", @list.tail.data
   end
 
-  def test_it_can_return_a_set_number_of_elements_from_a_starting_location
+  def test_it_can_find_and_return_a_set_number_of_elements_from_a_location
     0.upto(4) { |num| @list.append(num.to_s) }
     assert_equal "2 3", @list.find(2, 2)
+  end
+
+  def test_it_will_output_to_the_tail_if_find_request_exceeds_tail
+    0.upto(4) { |num| @list.append(num.to_s) }
+    assert_equal "1 2 3 4", @list.find(1, 5)
+  end
+
+  def test_it_will_begin_output_with_head_if_find_start_is_negative
+    0.upto(4) { |num| @list.append(num.to_s) }
+    assert_equal "0 1 2 3", @list.find(-1, 4)
+  end
+
+  def test_if_list_empty_find_returns_message
+    assert_equal "List is empty!", @list.find(0, 3)
   end
 
   def test_it_can_determine_if_an_element_is_included
     @list.append("big")
     assert @list.include?("big")
     refute @list.include?("small")
+  end
+
+  def test_it_can_search_an_empty_list_and_return_message
+    assert_equal "List is empty!", @list.include?("test")
   end
 
   def test_it_can_pop_off_the_last_element
@@ -116,9 +163,18 @@ class LinkedListTest < Minitest::Test
     @list.pop
     assert_equal "one", @list.tail.data
     @list.pop
-    assert_equal "zero", @list.tail.data
+  end
+
+  def test_it_can_pop_even_if_only_one_element
+    @list.append("zero")
+    assert_equal "zero", @list.head.data
     @list.pop
-    assert_equal nil, @list.tail
+    assert_equal nil, @list.head
+  end
+
+  def test_popping_empty_list_returns_nothing
+    @list.pop
+    assert_equal nil, @list.head
   end
 
 end

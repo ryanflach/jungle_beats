@@ -20,5 +20,4 @@ class JungleBeat
     `say -r 500 -v Boing #{list.to_string}`
   end
 
-  
 end

@@ -20,7 +20,7 @@ class JungleBeatTest < Minitest::Test
     @jb.append("doo wop diggy")
     assert_equal "doo", @jb.list.head.data
     assert_equal "wop", @jb.list.head.next_node.data
-    assert_equal "diggy", @jb.list.head.next_node.next_node.data
+    assert_equal "diggy", @jb.list.tail.data
   end
 
   def test_it_can_count_the_number_of_items
@@ -29,7 +29,7 @@ class JungleBeatTest < Minitest::Test
   end
 
   def test_it_can_play_a_beat
-    @jb.append("mmm bop she doo bee wop bop mmm bop sha doo bee wop bop")
+    @jb.append("mmm bop bah doo bee wop bop mmm bop sha doo bee wop bop")
     assert @jb.play
   end
 

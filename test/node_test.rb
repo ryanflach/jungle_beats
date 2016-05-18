@@ -13,9 +13,9 @@ class NodeTest < Minitest::Test
     assert node.data
   end
 
-  def test_it_can_have_a_preset_next_node
-    node = Node.new("plop", "beep")
-    assert_equal "beep", node.next_node
+  def test_it_has_no_next_node_by_default
+    node = Node.new("plop")
+    assert_equal nil, node.next_node
   end
 
 end
