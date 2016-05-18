@@ -18,4 +18,9 @@ class NodeTest < Minitest::Test
     assert_equal nil, node.next_node
   end
 
+  def test_it_can_have_an_assigned_next_node
+    node = Node.new("plop", "doowop")
+    assert_equal "doowop", node.next_node
+  end
+
 end
