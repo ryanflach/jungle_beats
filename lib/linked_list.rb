@@ -18,12 +18,23 @@ class LinkedList
     if head == nil
       assign_head(node)
     elsif head.next_node == nil
-      head_assign_next(node)
+      head_assign_next_node(node)
     else
       @tail.next_node = node
     end
     assign_tail(node)
     @count += 1
+  end
+
+  def prepend(data)
+    node = create_node(data)
+    if head == nil
+      assign_head(node)
+    else
+      head_holding = head
+      assign_head(node)
+      head_assign_next_node(head_holding)
+    end
   end
 
   def to_string (starting=head, start=0, num=count)
@@ -43,15 +54,8 @@ class LinkedList
     end
   end
 
-  def prepend(data)
-    node = create_node(data)
-    if head == nil
-      assign_head(node)
-    else
-      head_holding = head
-      assign_head(node)
-      head_assign_next(head_holding)
-    end
+  def find(start, num_elements)
+    to_string(navigate_to(start),start, num_elements)
   end
 
   def navigate_to(place)
@@ -86,10 +90,6 @@ class LinkedList
     end
   end
 
-  def find(start, num_elements)
-    to_string(navigate_to(start),start, num_elements)
-  end
-
   def include?(data)
     if empty?
       empty_message
@@ -107,7 +107,7 @@ class LinkedList
       assign_head(nil)
       assign_tail(nil)
     elsif count == 2
-      head_assign_next(nil)
+      head_assign_next_node(nil)
       assign_tail(head)
     else
       new_tail = head
@@ -138,7 +138,7 @@ class LinkedList
     @tail = node
   end
 
-  def head_assign_next(node)
+  def head_assign_next_node(node)
     @head.next_node = node
   end
 
