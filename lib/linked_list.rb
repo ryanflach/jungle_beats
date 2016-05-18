@@ -121,7 +121,7 @@ class LinkedList
     @count -= 1 if count > 0
   end
 
-  # Helper methods
+  # Helper methods to reduce redundancy
   def empty?
     count == 0 ? true : false
   end
