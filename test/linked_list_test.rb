@@ -76,8 +76,8 @@ class LinkedListTest < Minitest::Test
     assert_equal "data beep", @list.to_string
   end
 
-  def test_to_string_will_output_if_empty_list
-    assert_equal "List is empty!", @list.to_string
+  def test_to_string_will_return_nil_if_list_is_empty
+    assert_equal nil, @list.to_string
   end
 
   def test_it_can_prepend_to_an_empty_list
@@ -100,8 +100,8 @@ class LinkedListTest < Minitest::Test
     assert_equal "one", @list.navigate_to(1).data
   end
 
-  def test_if_empty_list_navigate_returns_nil
-    assert_equal "List is empty!", @list.navigate_to(3)
+  def test_if_empty_list_navigate_to_returns_nil
+    assert_equal nil, @list.navigate_to(3)
   end
 
   def test_it_can_insert_into_any_valid_position
@@ -142,8 +142,8 @@ class LinkedListTest < Minitest::Test
     assert_equal "0 1 2 3", @list.find(-1, 4)
   end
 
-  def test_if_list_empty_find_returns_message
-    assert_equal "List is empty!", @list.find(0, 3)
+  def test_if_list_empty_find_returns_nil
+    assert_equal nil, @list.find(0, 3)
   end
 
   def test_it_can_determine_if_an_element_is_included
@@ -152,8 +152,9 @@ class LinkedListTest < Minitest::Test
     refute @list.include?("small")
   end
 
-  def test_it_can_search_an_empty_list_and_return_message
-    assert_equal "List is empty!", @list.include?("test")
+  def test_will_return_false_if_searching_an_empty_list
+    assert_equal 0, @list.count
+    assert_equal false, @list.include?("test")
   end
 
   def test_it_can_pop_off_the_last_element

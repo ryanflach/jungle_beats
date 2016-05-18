@@ -39,7 +39,7 @@ class LinkedList
 
   def to_string (starting=head, start=0, num=count)
     if empty?
-      empty_message
+      nil
     else
       string = ""
       ending = starting
@@ -60,7 +60,7 @@ class LinkedList
 
   def navigate_to(place)
     if empty?
-      empty_message
+      nil
     elsif place < 0
       head
     else
@@ -92,7 +92,7 @@ class LinkedList
 
   def include?(data)
     if empty?
-      empty_message
+      false
     else
       starting = head
       while starting.data != data && starting.next_node != nil
@@ -122,13 +122,9 @@ class LinkedList
   end
 
   private
-  # Helper methods to reduce redundancy
+  # Helper methods
   def empty?
-    count == 0 ? true : false
-  end
-
-  def empty_message
-    "List is empty!"
+    count == 0
   end
 
   def assign_head(node)
