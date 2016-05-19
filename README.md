@@ -1,23 +1,17 @@
 ###Jungle Beats
 
-An IRB (Interactive Ruby Shell) application that allows the user to create a "beat" using strings.
+A command-line Ruby application that allows the user to create a "beat" using strings.
 
 The user's beat is played via the `play` method (utilizing the built-in `say` commmand).
 
 This version of the application also allows the user to set the computer rate and voice.
 
 ####Basic Instructions:
-* Load `'./lib/jungle_beat.rb'` in pry or irb.
-* Instantiate a new instance of the JungleBeat class and assign it to any variable.
-* Using your variable name, call the method `append` and pass in any number of _string_ arguments.
-* Call `play` on your instance of JungleBeat to hear your beat.
-* The default rate and voice are 500 and "Boing", respectively.
-  * To change the rate, set the instance of rate to any integer
-  * To change the voice, set the instance of voice to any valid string voice
-* To reset the rate, call `reset_rate` on your instance of JungleBeat
-* To resert the voice, call `reset_voice` on your instance of JungleBeat
+* Clone this repo to your local machine and cd into the directory.
+* From the main directory (`/jungle_beats`), type `ruby lib/jb_player.rb`.
+* Follow the on-screen instructions and have fun making and playing your beats!
 
-####Valid Voices:
+####Voices Supported:
 Female Voices
 - Agnes
 - Kathy
