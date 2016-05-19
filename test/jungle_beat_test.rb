@@ -28,6 +28,14 @@ class JungleBeatTest < Minitest::Test
     assert_equal nil, @jb.list.head
   end
 
+  def test_append_will_downcase_and_eliminate_special_characters
+    @jb.append("ABC A!C ???B")
+    assert_equal "abc", @jb.list.head.data
+    assert_equal "a", @jb.list.head.next_node.data
+    assert_equal "c", @jb.list.navigate_to(2).data
+    assert_equal "b", @jb.list.tail.data
+  end
+
   def test_it_can_prepend_to_a_linked_list
     @jb.prepend("doo")
     assert_equal "doo", @jb.list.head.data
@@ -43,6 +51,14 @@ class JungleBeatTest < Minitest::Test
   def test_prepending_spaces_only_has_no_effect
     @jb.append("   ")
     assert_equal nil, @jb.list.head
+  end
+
+  def test_prepend_will_downcase_and_eliminate_special_characters
+    @jb.prepend("ABC A!C ???B")
+    assert_equal "abc", @jb.list.head.data
+    assert_equal "a", @jb.list.head.next_node.data
+    assert_equal "c", @jb.list.navigate_to(2).data
+    assert_equal "b", @jb.list.tail.data
   end
 
   def test_it_can_count_the_number_of_items

@@ -11,12 +11,12 @@ class JungleBeat
   end
 
   def append(data)
-    data_list = data.split
+    data_list = data_conversion(data)
     data_list.each { |data| list.append(data) }
   end
 
   def prepend(data)
-    data_list = data.split.reverse
+    data_list = data_conversion(data).reverse
     data_list.each { |data| list.prepend(data) }
   end
 
@@ -34,6 +34,10 @@ class JungleBeat
 
   def reset_voice
     @voice = "Boing"
+  end
+
+  def data_conversion(data)
+    data.downcase.gsub(/[^a-z0-9]/, ' ').split
   end
 
 end
