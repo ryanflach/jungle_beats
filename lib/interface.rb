@@ -32,7 +32,7 @@ beat, change the (s)peed, or change the (v)oice?"
   def append_sounds
     puts "What 'words' would you like to add (TIP: single syllables separated \
 by a space work best - and keep in mind 'q' or 'quit' will still exit!)?"
-    choice = gets.chomp.to_s.downcase.gsub(/[^a-z]/, ' ')
+    choice = gets.chomp.to_s
     quit_check(choice)
     new_beat.append(choice)
     menu
