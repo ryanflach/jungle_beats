@@ -8,7 +8,7 @@ This version of the application also allows the user to set the computer rate an
 
 ####Basic Instructions:
 * Clone this repo to your local machine and cd into the directory.
-* From the main directory (`/jungle_beats`), type `ruby lib/jb_player.rb`.
+* From the main directory (`/jungle_beats`), type `ruby jb_player.rb`.
 * Follow the on-screen instructions and have fun making and playing your beats!
 
 ####Voices Supported:
