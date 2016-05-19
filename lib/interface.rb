@@ -1,5 +1,4 @@
 require './lib/jungle_beat.rb'
-require 'pry'
 
 class Interface
   attr_reader :new_beat
@@ -34,7 +33,6 @@ beat, change the (s)peed, or change the (v)oice?"
     puts "What 'words' would you like to add (TIP: single syllables separated \
 by a space work best - and keep in mind 'q' or 'quit' will still exit!)?"
     choice = gets.chomp.to_s.downcase.gsub(/[^a-z]/, ' ')
-    binding.pry
     quit_check(choice)
     new_beat.append(choice)
     menu
