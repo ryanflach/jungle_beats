@@ -23,6 +23,11 @@ class JungleBeatTest < Minitest::Test
     assert_equal "diggy", @jb.list.tail.data
   end
 
+  def test_appending_spaces_only_has_no_effect
+    @jb.append("    ")
+    assert_equal nil, @jb.list.head
+  end
+
   def test_it_can_prepend_to_a_linked_list
     @jb.prepend("doo")
     assert_equal "doo", @jb.list.head.data
@@ -33,6 +38,11 @@ class JungleBeatTest < Minitest::Test
     @jb.prepend("hip hip hip hop hoo")
     assert_equal "hip", @jb.list.head.data
     assert_equal "hoo", @jb.list.navigate_to(4).data
+  end
+
+  def test_prepending_spaces_only_has_no_effect
+    @jb.append("   ")
+    assert_equal nil, @jb.list.head
   end
 
   def test_it_can_count_the_number_of_items
